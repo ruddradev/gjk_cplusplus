@@ -26,24 +26,27 @@ Vector Collision::updateDir(std::vector<Vector> sim)
 	switch(n)
 	{
 	case 2:
-		cout<<"In case 2"<<endl;
+		//cout<<"In case 2"<<endl;
 		AB=(sim[0]-sim[1]);
 		AO=origin-sim[1];
-		cout<<Vector::dot(AB,AB)<<endl;
 		dir=Vector::cross(Vector::cross(AB,AO),AB);
 		break;
 	case 3:
 		AB=sim[1]-sim[1];
 		AC=sim[0]-sim[2];
 		AO=origin-sim[2];
-		cout<<"In case 3"<<endl;
+		//cout<<"In case 3"<<endl;
 		tPlane=Vector::cross(AC,AB);
 		if(Vector::dot(Vector::cross(AC,tPlane),AO)>0)
-		{cout<<"Vector::dot(Vector::cross(AC,tPlane),AO)>0"<<endl;
-		dir=Vector::cross(AC,Vector::cross(AO,AC));}
+		{
+			//cout<<"Vector::dot(Vector::cross(AC,tPlane),AO)>0"<<endl;
+			dir=Vector::cross(AC,Vector::cross(AO,AC));
+		}
 		else if(Vector::dot(Vector::cross(AC,tPlane),AO)==0)
-			{cout<<"Vector::dot(Vector::cross(AC,tPlane),AO)==0"<<endl;
-		break;}
+			{
+				//cout<<"Vector::dot(Vector::cross(AC,tPlane),AO)==0"<<endl;
+				break;
+			}
 		else if(Vector::dot(Vector::cross(tPlane,AB),AO)<0)
 			if(Vector::dot(tPlane,AO)>0)
 				dir=tPlane;
@@ -65,11 +68,9 @@ bool Collision::checkCollision()
 	Vector d(1,-1,-1);
 	Vector s=Collision::support(d);
 	simplex.push_back(s);
-	cout<<Vector::dot(s,s)<<" "<<Vector::dot(d,d)<<endl;
-	d=origin-d;
+	d=(origin-d);
 	while(true)
 	{
-		cout<<Vector::dot(s,s)<<" "<<Vector::dot(d,d)<<endl;
 		s=Collision::support(d);
 		if(Vector::dot(d,s)<0)
 		{

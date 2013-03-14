@@ -1,10 +1,10 @@
 #include "Vector.h"
 #include <iostream>
+using namespace std;
 
 Vector& Vector::operator=(const Vector& rhs)
 {
 	i=const_cast<Vector&>(rhs).Geti ();
-	//std::cout<<const_cast<Vector&>(rhs).Geti()<< "  "<<x<<std::endl;
 	j=const_cast<Vector&>(rhs).Getj();
 	k=const_cast<Vector&>(rhs).Getk();
   return *this;
@@ -54,20 +54,17 @@ Vector Vector::cross(Vector vec1,Vector vec2)
     return result;
 }
 
-Vector Vector::maxDot(Vector(& list)[],Vector direction)
+Vector Vector::maxDot(vector<Vector> list,Vector direction)
 {
     double max=-1000000.0;
     double dotValue;
     Vector maxVec;
-	//size_t size=Vector::SizeOfArray<Vector>(list);
-	std::cout<<"List Size="<<sizeof(list)<<" "<<sizeof(list[0])<<std::endl;
-    for(size_t i=0;i<size-1;i++)
+    for(size_t i=0;i<list.size();i++)
     {
         dotValue=dot(list[i],direction);
         if(dotValue>max)
         {
-			std::cout<<"inside if block in maxDot, list[i].i="<<list[i].Geti() <<std::endl;
-            max=dotValue;
+			 max=dotValue;
             maxVec=list[i];
         }
 

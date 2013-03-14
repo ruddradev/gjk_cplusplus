@@ -1,13 +1,13 @@
 #ifndef POLYHEDRA_H
 #define POLYHEDRA_H
 
-#include "Point.h"
+#include "Vector.h"
 class Polyhedra
 {
     public:
-		Vector* pointList;
+		vector<Vector> pointList;
 		Polyhedra();
-        Polyhedra(Vector list[]);
+        Polyhedra(vector<Vector> list);
         virtual ~Polyhedra();
 		virtual Vector getSupport(Vector);
     protected:

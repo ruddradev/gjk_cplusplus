@@ -1,6 +1,6 @@
 
-
-
+# include<vector>
+using namespace std;
 class Vector
 {
 
@@ -29,7 +29,7 @@ class Vector
         void Setk(double val) { k = val; }
         static double dot(Vector,Vector);
         static Vector cross(Vector,Vector);
-        static Vector maxDot(Vector[],Vector );
+        static Vector maxDot(vector<Vector>,Vector );
 	protected:
 		
 };
