@@ -22,8 +22,8 @@ Vector Circle::getSupport(Vector dir)
 	newVec.k=0.0;
 	Vector support;
 	support=newVec+centre;
-	cout<<"Circle Dir="<<newVec.i<<" "<<newVec.j<<endl;
-	cout <<"Circle Support="<<support.i<<" "<<support.j<<endl;
+	//cout<<"Circle Dir="<<newVec.i<<" "<<newVec.j<<endl;
+	//cout <<"Circle Support="<<support.i<<" "<<support.j<<endl;
 	return support;
 	
 }

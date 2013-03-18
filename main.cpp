@@ -21,6 +21,6 @@ int main()
 	Circle two(4.9,q1);
    Collision c1(&one,&two);  //Avoid Object Slicing. Pass pointers to effect polymorphism
    c1.checkCollision(); 
-   getchar();
+   //getchar();
     return 0;
 }

@@ -17,6 +17,6 @@ Polyhedra::~Polyhedra()
 }
 Vector Polyhedra::getSupport(Vector dir)
 {
-	std::cout<<"Inside Polyhedra GetSupport"<<std::endl;
+	//std::cout<<"Inside Polyhedra GetSupport"<<std::endl;
 	return Vector::maxDot(pointList,dir); 
 }

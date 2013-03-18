@@ -49,8 +49,8 @@ Vector Square::getSupport(Vector dir)
 			support=pointList[l];
 	}
 	
-	cout<<"Square Dir="<<dir.i<<" "<<dir.j<<endl;
-	cout <<"Square Support="<<support.i<<" "<<support.j<<endl;
+	//cout<<"Square Dir="<<dir.i<<" "<<dir.j<<endl;
+	//cout <<"Square Support="<<support.i<<" "<<support.j<<endl;
 	return support;
 }
 Square::~Square(void)
