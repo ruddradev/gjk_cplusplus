@@ -4,14 +4,14 @@
 class Collision
 {
 public:
-	Collision(Polyhedra,Polyhedra);
+	Collision(Polyhedra*,Polyhedra*);
 	virtual ~Collision(void);
 	Vector support(Vector);
 	bool checkCollision();
-	Vector Collision::updateDir(std::vector<Vector>);
+	Vector Collision::updateDir();
 private:
-	Polyhedra a;
-	Polyhedra b;
+	Polyhedra* a;
+	Polyhedra* b;
 	std::vector<Vector> simplex;
 	Vector origin;
 };

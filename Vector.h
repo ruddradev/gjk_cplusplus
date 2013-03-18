@@ -30,6 +30,7 @@ class Vector
         static double dot(Vector,Vector);
         static Vector cross(Vector,Vector);
         static Vector maxDot(vector<Vector>,Vector );
+		double norm();
 	protected:
 		
 };

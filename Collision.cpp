@@ -3,7 +3,7 @@
 using namespace std;
 //#define (a)sameDir(b) (Vector::dot(a,b)>0?true:false) 
 
-Collision::Collision(Polyhedra one,Polyhedra two)
+Collision::Collision(Polyhedra* one,Polyhedra* two)
 {
 	a=one;
 	b=two;
@@ -14,58 +14,86 @@ Vector Collision::support(Vector dir)
 {
 	Vector support;
 	Vector negDir=origin-dir;
-	Vector aDot=Vector::maxDot(a.pointList,dir);
-	Vector bDot=Vector::maxDot(b.pointList,negDir);
+	Vector aDot=a->getSupport(dir);
+	Vector bDot=b->getSupport(negDir);
 	support=aDot-bDot;
 	return support;
 }
-Vector Collision::updateDir(std::vector<Vector> sim)
+Vector Collision::updateDir()
 {
 	Vector dir,AB,AC,AD,AO,tPlane;
-	size_t n=sim.size();
+	vector<Vector> temp;
+	temp.reserve(3); 
+	size_t n=simplex.size();
+	cout<<"Elemets in Simplex="<<n<<endl;
 	switch(n)
 	{
 	case 2:
-		//cout<<"In case 2"<<endl;
-		AB=(sim[0]-sim[1]);
-		AO=origin-sim[1];
+		cout<<"In case 2"<<endl;
+		AB=(simplex.at(0)-simplex.at(1));
+		AO=origin-simplex.at(1);
 		dir=Vector::cross(Vector::cross(AB,AO),AB);
 		break;
 	case 3:
-		AB=sim[1]-sim[1];
-		AC=sim[0]-sim[2];
-		AO=origin-sim[2];
-		//cout<<"In case 3"<<endl;
+		AB=simplex.at(1)-simplex.at(2);
+		AC=simplex.at(0)-simplex.at(2);
+		AO=origin-simplex.at(2);
+		cout<<"In case 3"<<endl;
+		cout<<"A="<<simplex.at(2).i<<" "<<simplex.at(2).j<<endl;
+		cout<<"B="<<simplex.at(1).i<<" "<<simplex.at(1).j<<endl;
+		cout<<"C="<<simplex.at(0).i<<" "<<simplex.at(0).j<<endl;
 		tPlane=Vector::cross(AC,AB);
 		if(Vector::dot(Vector::cross(AC,tPlane),AO)>0)
 		{
-			//cout<<"Vector::dot(Vector::cross(AC,tPlane),AO)>0"<<endl;
-			dir=Vector::cross(AC,Vector::cross(AO,AC));
+			cout<<"Vector::dot(Vector::cross(AC,tPlane),AO)>0="<<Vector::dot(Vector::cross(AC,tPlane),AO)<<endl;
+			dir=Vector::cross(AC,Vector::cross(AO,AC));					//need to mend later for 3D
+			simplex.erase(simplex.begin()+1);
 		}
 		else if(Vector::dot(Vector::cross(AC,tPlane),AO)==0)
 			{
-				//cout<<"Vector::dot(Vector::cross(AC,tPlane),AO)==0"<<endl;
+				cout<<"Vector::dot(Vector::cross(AC,tPlane),AO)==0"<<endl;
 				break;
 			}
 		else if(Vector::dot(Vector::cross(tPlane,AB),AO)<0)
+		{
+			Vector cr=Vector::cross(tPlane,AB);
+			cout<<"Vector::dot(Vector::cross(tPlane,AB),AO)<0"<<Vector::dot(Vector::cross(tPlane,AB),AO)<<endl;
+
 			if(Vector::dot(tPlane,AO)>0)
+			{
+				cout<<"Vector::dot(tPlane,AO)>0"<<endl;
 				dir=tPlane;
+			}
 			else if(Vector::dot(tPlane,AO)==0)
+			{
+				cout<<"~Vector::dot(tPlane,AO)==0"<<endl;
 				break;
+				
+			}
 			else
 				dir=origin-tPlane;
+		}
 		else if(Vector::dot(Vector::cross(tPlane,AB),AO)>0)
-			dir=Vector::cross(AB,Vector::cross(AO,AB));
+		{	
+			cout<<"Vector::dot(Vector::cross(tplane,AB),AO)>0"<<endl;
+			dir=Vector::cross(AB,Vector::cross(AO,AB));	    //mend later
+			simplex.erase(simplex.begin() );
+		}
 		else
 			break;
 	case 4:
+		
+		//Vector newPoint=simplex.back();
+		//simplex.pop_back();
+		//simplex.push_back(newPoint);
 		break;
 	}
+	cout<<"dir="<<dir.i<<" "<<dir.j<<" "<<dir.k<<endl; 
 	return dir;
 }
 bool Collision::checkCollision()
 {
-	Vector d(1,-1,-1);
+	Vector d(1,-1,0);
 	Vector s=Collision::support(d);
 	simplex.push_back(s);
 	d=(origin-d);
@@ -79,11 +107,17 @@ bool Collision::checkCollision()
 			break;
 		}
 		simplex.push_back(s);
-		d=Collision::updateDir(simplex);
-		if(d.i==0 && d.j==0 && d.k==0)
+		d=Collision::updateDir();
+		if(d.i==0 && d.j==0 )
 		{
 			cout<<"Intersection"<<endl;
 			return true;
+			break;
+		}
+		else if(d.k==-1)
+		{
+			cout<<"No Intersection"<<endl;
+			return false;
 			break;
 		}
 	}

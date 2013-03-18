@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <iostream>
 #include "Polyhedra.h"
 
 
@@ -17,5 +17,6 @@ Polyhedra::~Polyhedra()
 }
 Vector Polyhedra::getSupport(Vector dir)
 {
+	std::cout<<"Inside Polyhedra GetSupport"<<std::endl;
 	return Vector::maxDot(pointList,dir); 
 }

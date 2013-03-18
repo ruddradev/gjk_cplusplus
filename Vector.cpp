@@ -1,5 +1,6 @@
 #include "Vector.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 Vector& Vector::operator=(const Vector& rhs)
@@ -42,14 +43,14 @@ Vector Vector::operator -(Vector vec)
 double Vector::dot(Vector vec1,Vector vec2)
 {
     double result;
-    return vec1.i*vec2.i+vec1.j*vec2.j+vec1.k*vec2.k;
+    result= vec1.i*vec2.i+vec1.j*vec2.j+vec1.k*vec2.k;
     return result;
 }
 Vector Vector::cross(Vector vec1,Vector vec2)
 {
     Vector result(0.0,0.0,0.0);
     result.i=vec1.j*vec2.k-vec1.k*vec2.j;
-    result.j=vec2.k*vec2.i-vec1.i*vec2.k;
+    result.j=vec1.k*vec2.i-vec1.i*vec2.k;
     result.k=vec1.i*vec2.j-vec1.j*vec2.i;
     return result;
 }
@@ -70,6 +71,10 @@ Vector Vector::maxDot(vector<Vector> list,Vector direction)
 
     }
     return maxVec;
+}
+double Vector::norm()
+{
+	return (sqrt(this->i*this->i+this->j*this->j+this->k*this->k));
 }
 Vector::~Vector()
 {
