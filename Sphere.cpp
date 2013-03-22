@@ -1,4 +1,6 @@
 #include "Sphere.h"
+#include <iostream>
+using namespace std;
 
 Sphere::Sphere(void)
 {
@@ -21,6 +23,8 @@ Vector Sphere::getSupport(Vector dir)
 	newVec.k=(dir.k/crossMod)*radius;
 	Vector support;
 	support=newVec+centre;
+	//cout<<"Sphere Dir="<<newVec.i<<" "<<newVec.j<<" "<<newVec.k<<endl;
+	//cout <<"Sphere Support="<<support.i<<" "<<support.j<<" "<<support.k<<endl;
 	return support;
 }
 

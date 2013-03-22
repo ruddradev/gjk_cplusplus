@@ -90,13 +90,15 @@ Vector Collision::updateDir()
 }
 bool Collision::checkCollision()
 {
-	Vector d(1,-1,0);
+	Vector d(1,-1,-1);
 	Vector s=Collision::support(d);
 	simplex.push_back(s);
 	d=(origin-d);
 	while(true)
 	{
 		s=Collision::support(d);
+		cout<<" Dir="<<d.i<<" "<<d.j<<" "<<d.k<<endl;
+		cout <<" Support="<<s.i<<" "<<s.j<<" "<<s.k<<endl;
 		if(Vector::dot(d,s)<0)
 		{
 			cout<<"No Intersection"<<endl;
@@ -105,7 +107,7 @@ bool Collision::checkCollision()
 		}
 		simplex.push_back(s);
 		d=Collision::updateDir();
-		if(d.i==0 && d.j==0 &&d.k==0 )		//recently mended
+		if(d.i==0 && d.j==0 && d.k==0)		//recently mended
 		{
 			cout<<"Intersection"<<endl;
 			return true;
