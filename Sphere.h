@@ -1,15 +1,15 @@
 #pragma once
+
 #include "Polyhedra.h"
 
-class Circle: public Polyhedra
+class Sphere: public Polyhedra
 {
 	Vector centre;
-	Vector normal;
 	double radius;
 	
 public:
-	Circle(void);
-	Circle(double r,Vector c,Vector n);
+	Sphere(void);
+	Sphere(double r,Vector c);
 	virtual Vector getSupport(Vector);
-	~Circle(void);
+	~Sphere(void);
 };

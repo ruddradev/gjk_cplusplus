@@ -7,23 +7,27 @@ Circle::Circle(void)
 {
 	radius=0.0;
 }
-Circle::Circle(double r,Vector c)
+Circle::Circle(double r,Vector c,Vector n)
 {
 	radius=r;
 	centre=c;
+	normal=n;
 }
 Vector Circle::getSupport(Vector dir)
 {
-	double nor=sqrt(dir.i*dir.i+dir.j*dir.j+dir.k*dir.k);
+	//cout<<"Input Circle Dir="<<dir.i<<" "<<dir.j<<" "<<dir.k<<endl;
+	Vector crossVec=Vector::cross(normal,Vector::cross(dir,normal));
+	if(crossVec.norm()==0)
+		return centre;
+	double crossMod=crossVec.norm();
 	Vector newVec;
-	//double dirMod=dir.norm();
-	newVec.i=(dir.i/nor)*radius;
-	newVec.j=(dir.j/nor)*radius;
-	newVec.k=0.0;
+	newVec.i=(crossVec.i/crossMod)*radius;
+	newVec.j=(crossVec.j/crossMod)*radius;
+	newVec.k=(crossVec.k/crossMod)*radius;
 	Vector support;
 	support=newVec+centre;
-	//cout<<"Circle Dir="<<newVec.i<<" "<<newVec.j<<endl;
-	//cout <<"Circle Support="<<support.i<<" "<<support.j<<endl;
+	//cout<<"Circle Dir="<<newVec.i<<" "<<newVec.j<<" "<<newVec.k<<endl;
+	//cout <<"Circle Support="<<support.i<<" "<<support.j<<" "<<support.k<<endl;
 	return support;
 	
 }
